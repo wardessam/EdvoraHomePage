@@ -4,14 +4,14 @@ import Image from 'next/image';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 const Product = (props) => {
-    
+
     return (
-    
-    <div key={props.img}>
+   
+    <div key={props.img} >
         <Box
         sx={{
            width: "auto",
-           height: "auto",
+           height: "50%",
            backgroundColor: '#232323',
            borderRadius: "10px",
            p:7,
@@ -38,7 +38,7 @@ const Product = (props) => {
     </Box>
 
         </div>
-     
+       
      );
 }
  

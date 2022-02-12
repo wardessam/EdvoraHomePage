@@ -6,14 +6,15 @@ import Box from '@mui/material/Box';
 import {useState,useEffect} from 'react';
 import useSWR from 'swr';
 import fetch from 'isomorphic-unfetch';
-import StateFilter from './State_Filter';
 
 
 
-const FilterDropDown = () => {
+
+const ProductFilter = ({onSelectProduct}) => {
     const [productName, setProductName] =useState('');
     const handleChange = (event) => {
     setProductName(event.target.value);
+    onSelectProduct(event.target.value);
   };
   const fetcher = async (url) => await fetch(url).then((r) => r.json());
   const {data, error}  = useSWR('https://assessment-edvora.herokuapp.com/', fetcher);
@@ -54,9 +55,9 @@ const FilterDropDown = () => {
         </Select>
       </FormControl>
       </Box>
-      <StateFilter product_name={productName}/>
+      
       </>
      );
 }
  
-export default FilterDropDown;
+export default ProductFilter;

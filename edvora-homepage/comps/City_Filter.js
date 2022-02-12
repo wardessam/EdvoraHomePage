@@ -6,17 +6,18 @@ import Box from '@mui/material/Box';
 import {useState} from 'react';
 import useSWR from 'swr';
 import fetch from 'isomorphic-unfetch';
-const CityFilter = ({product_name,state}) => {
+const CityFilter = ({product_name,state,onSelectCity}) => {
   
         const [city, setCity] =useState('');
         const handleChange = (event) => {
         setCity(event.target.value);
+        onSelectCity(event.target.value);
       };
       //if(product_name=='') return <div>Select Product First!</div>
       const fetcher = async (url) => await fetch(url).then((r) => r.json());
       const {data}  = useSWR('https://assessment-edvora.herokuapp.com/', fetcher);
       var d = data?.filter(obj => obj.product_name == product_name&&obj.address.state==state)
-      const Unidata = [...new Map(d.map(item =>
+      const Unidata = [...new Map(d?.map(item =>
         [item["address"]["city"], item])).values()];
         return (
             <Box

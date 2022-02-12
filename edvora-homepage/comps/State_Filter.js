@@ -3,20 +3,20 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
-import {useState} from 'react';
 import useSWR from 'swr';
 import fetch from 'isomorphic-unfetch';
-import CityFilter from './City_Filter';
-const State_Filter = ({product_name}) => {
+import {useState} from 'react';
+const State_Filter = ({product_name,onSelectState}) => {
     const [state, setState] =useState('');
     const handleChange = (event) => {
     setState(event.target.value);
+    onSelectState(event.target.value);
   };
   
   const fetcher = async (url) => await fetch(url).then((r) => r.json());
   const {data}  = useSWR('https://assessment-edvora.herokuapp.com/', fetcher);
   var d = data?.filter(obj => obj.product_name == product_name)
-  const Unidata = [...new Map(d.map(item =>
+  const Unidata = [...new Map(d?.map(item =>
     [item["address"]["state"], item])).values()];
     return (
       <>
@@ -48,7 +48,7 @@ const State_Filter = ({product_name}) => {
         </Select>
       </FormControl>
       </Box>
-      <CityFilter product_name={product_name} state={state}/>
+     
       </>
     );
 }

@@ -17,27 +17,41 @@ export const getStaticProps = async()=>{
   }
 }
 export default function Home({Allproducts,Uniproducts}) {
+    const [product, setProduct] = useState('');
+    const [state, setState] = useState('');
+    const [city, setCity] = useState('');
+    const handle_product = (pro) =>{
+      setProduct(pro);
+      }
+    const handle_state = (state) =>{
+      setState(state);
+     }
+    const handle_city =(city)=>{
+      setCity(city);
+    }
   return (
     <Grid container >
         <Grid item xs={2}>
-          <Filters/>
+          <Filters product_={handle_product} state_={handle_state} city_={handle_city}/>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={10} style={{paddingBottom: '50px'}}>
          <div className='homeword_edvora'> Edvora </div>
           <div className='homeword_products'>Products</div>
           <div style={{display:'inline'}}>
+            
           {Uniproducts.map(p => 
           (
             <>
-           <div className='productName'>{p.product_name}</div>
+           <div key={p.product_name} className='productName'>{p.product_name}</div>
            <div className='line'></div>
            <Box sx={{ width:'auto', bgcolor: '#131313',
            "& .MuiSvgIcon-root": {
             color: "white",fontSize:"4rem"} }}>
            <Tabs
              variant="scrollable"
-            scrollButtons="auto">
-             value={0}
+            scrollButtons="auto"
+            value={0}>
+           
             {Allproducts.map(
               element => element.product_name===p.product_name&&(
                 <Product img={element.image} product_name={element.product_name} brand_name= {element.brand_name}
